@@ -11,7 +11,7 @@ function App() {
 
       <Suspense fallback={null}>
         <Stage preset="soft" intensity={1} environment="city">
-          <TimeMachine />
+         
         </Stage>
       </Suspense>
       <OrbitControls autoRotate />
