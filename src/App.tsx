@@ -1,20 +1,22 @@
-import { OrbitControls, Stage, useGLTF } from '@react-three/drei'
+import { Center, OrbitControls } from '@react-three/drei'
 import './App.css'
 import { Canvas } from '@react-three/fiber'
-import { Suspense } from 'react'
-import TimeMachine from './models/TimeMachine'
+import OfficeImperialTobacco from './models/OfficeImperialTobacco'
 
 function App() {
 
   return (
-    <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
+    <Canvas shadows>
 
-      <Suspense fallback={null}>
-        <Stage preset="soft" intensity={1} environment="city">
-         
-        </Stage>
-      </Suspense>
-      <OrbitControls autoRotate />
+      <OrbitControls makeDefault />
+
+
+      <Center>
+
+        <OfficeImperialTobacco />
+
+      </Center>
+
     </Canvas>
   )
 }
