@@ -1,4 +1,3 @@
-import { Center, OrbitControls } from '@react-three/drei'
 import './App.css'
 import { Canvas } from '@react-three/fiber'
 import OfficeImperialTobacco from './models/OfficeImperialTobacco'
@@ -6,16 +5,10 @@ import OfficeImperialTobacco from './models/OfficeImperialTobacco'
 function App() {
 
   return (
-    <Canvas shadows>
+    <Canvas shadows className='r3f'>
 
-      <OrbitControls makeDefault />
+      <OfficeImperialTobacco />
 
-
-      <Center>
-
-        <OfficeImperialTobacco />
-
-      </Center>
 
     </Canvas>
   )
