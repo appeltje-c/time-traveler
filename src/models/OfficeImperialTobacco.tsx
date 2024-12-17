@@ -96,10 +96,9 @@ export default function OfficeImperialTobacco() {
                     </mesh>
 
                     <mesh
+                        geometry={nodes.Paper.geometry}
                         position={[-0.353, 1.185, 0.423]}
-                        rotation={[0, 0, 0]}>
-                        <boxGeometry args={[0.2, 0.01, 0.4]} />
-                        <meshBasicMaterial color={0xf3f3f3} />
+                        rotation={[0.41, 0, 0]}>
                     </mesh>
 
                     <mesh
