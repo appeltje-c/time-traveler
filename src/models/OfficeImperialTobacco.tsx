@@ -22,7 +22,7 @@ type GLTFResult = GLTF & {
 
 export default function OfficeImperialTobacco() {
 
-    const group = useRef<Group>()
+    const group = useRef<Group>(null)
     const { nodes, animations } = useGLTF('./model/model.glb') as GLTFResult
     const texture = useTexture('./model/baked.jpg')
     texture.flipY = false
