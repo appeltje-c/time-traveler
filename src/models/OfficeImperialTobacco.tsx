@@ -1,6 +1,6 @@
 import { useGLTF, useTexture, PresentationControls, useAnimations } from "@react-three/drei"
 import { useControls } from "leva"
-import { act, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { Group, Mesh } from "three"
 import { GLTF } from "three-stdlib"
 
