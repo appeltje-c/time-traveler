@@ -1,4 +1,4 @@
-import { useGLTF, useTexture, PresentationControls, useAnimations } from "@react-three/drei"
+import { useGLTF, useTexture, OrbitControls, useAnimations } from "@react-three/drei"
 import { useTinker } from "tinker-tools"
 import { useEffect, useRef } from "react"
 import { Group, Mesh } from "three"
@@ -8,14 +8,15 @@ import { GLTF } from "three-stdlib"
 type GLTFResult = GLTF & {
     nodes: {
         Baked: Mesh,
-        Light003: Mesh,
-        Light004: Mesh,
-        Light005: Mesh,
+        Lightfront: Mesh,
+        Lightleft: Mesh,
+        Lightright: Mesh,
         Screen001: Mesh,
         Screen002: Mesh,
         Paper: Mesh,
-        Base: Mesh,
-        Handle: Mesh
+        Paperball: Mesh,
+        Phone: Mesh,
+        Receiver: Mesh
     }
     materials: {}
 }
@@ -27,14 +28,15 @@ export default function OfficeImperialTobacco() {
     const texture = useTexture('./model/baked.jpg')
     texture.flipY = false
 
+
     const { actions } = useAnimations(animations, group)
 
+    console.info(actions)
+
     useEffect(() => {
-
         actions['Printing']?.play()
-        actions['StaplerHead']?.play()
-        actions['StaplerBody']?.play()
-
+        actions['Jump']?.play()
+        actions['Ringing']?.play()
     }, [])
 
     const { rotation, polar, azimuth } = useTinker({
@@ -55,82 +57,107 @@ export default function OfficeImperialTobacco() {
     return (
         <>
             <color attach="background" args={['#1f1f1f']} />
-            <PresentationControls
+            {/* <PresentationControls
                 global
                 rotation={rotation}
                 polar={polar}
                 azimuth={azimuth}
                 snap={{ mass: 4, tension: 400 }}
-                config={{ mass: 1, tension: 400 }}>
+                config={{ mass: 1, tension: 400 }}> */}
 
-                <group ref={group} dispose={null}>
-                    <group scale={1.2}>
-                        <mesh
-                            geometry={nodes.Light003.geometry}
-                            position={[-0.835, 0.336, -1.819]}>
-                            <meshBasicMaterial color={0xffffff} />
-                        </mesh>
+            <OrbitControls />
 
-                        <mesh
-                            geometry={nodes.Light004.geometry}
-                            position={[0.725, 0.336, -1.819]}>
-                            <meshBasicMaterial color={0xffffff} />
-                        </mesh>
+            <group ref={group} dispose={null}>
 
-                        <mesh
-                            geometry={nodes.Light005.geometry}
-                            position={[0.909, 0.336, 0.077]}
-                            rotation={[0, -Math.PI / 2, 0]}>
-                            <meshBasicMaterial color={0xffffff} />
-                        </mesh>
+                <mesh
+                    name="Screen001"
+                    castShadow
+                    geometry={nodes.Screen001.geometry}
+                    position={[0.514, 1.27, -1.156]}
+                    rotation={[0, -0.783, 0]}>
+                    <meshBasicMaterial color="#3f3f3f" />
+                </mesh>
 
-                        <mesh
-                            geometry={nodes.Screen001.geometry}
-                            material={nodes.Screen001.material}
-                            position={[0.514, 1.27, -1.156]}
-                            rotation={[0, -0.783, 0]}
-                        />
-                        <mesh
-                            geometry={nodes.Screen002.geometry}
-                            material={nodes.Screen002.material}
-                            position={[-0.531, 1.27, -1.404]}
-                            rotation={[Math.PI, -0.573, Math.PI]}
-                        />
-                        <mesh
-                            geometry={nodes.Baked.geometry}
-                            position={[1.261, 0.378, -1.096]}
-                            rotation={[0, 0.683, 0]}>
-                            <meshBasicMaterial map={texture} />
-                        </mesh>
+                <mesh
+                    name="Screen002"
+                    castShadow
+                    geometry={nodes.Screen002.geometry}
+                    position={[-0.531, 1.27, -1.404]}
+                    rotation={[Math.PI, -0.573, Math.PI]}>
+                    <meshBasicMaterial color="#3f3f3f" />
+                </mesh>
 
-                        <mesh
-                            name="Paper"
-                            geometry={nodes.Paper.geometry}
-                            position={[-0.353, 1.185, 0.423]}
-                            rotation={[0.449, 0, 0]}>
-                            <meshBasicMaterial color={0xcccccc} />
-                        </mesh>
+                <mesh
+                    name="Lightfront"
+                    castShadow
+                    geometry={nodes.Lightfront.geometry}
+                    position={[0.909, 0.336, 0.077]}
+                    rotation={[0, -Math.PI / 2, 0]}>
+                    <meshBasicMaterial color="#ffffff" />
+                </mesh>
 
-                        <mesh
-                            name="Base"
-                            geometry={nodes.Base.geometry}
-                            position={[-1.641, 1.217, 0.545]}
-                            rotation={[Math.PI, -1.126, Math.PI]}
-                            scale={0.904}>
-                            <meshBasicMaterial map={texture} />
-                        </mesh>
-                        <mesh
-                            name="Handle"
-                            geometry={nodes.Handle.geometry}
-                            position={[-1.812, 1.275, 0.903]}
-                            rotation={[Math.PI, -1.126, Math.PI]}
-                            scale={0.904}>
-                            <meshBasicMaterial map={texture} />
-                        </mesh>
+                <mesh
+                    name="Lightleft"
+                    castShadow
+                    geometry={nodes.Lightleft.geometry}
+                    position={[-0.835, 0.336, -1.819]}>
+                    <meshBasicMaterial color="#ffffff" />
+                </mesh>
 
-                    </group>
-                </group>
-            </PresentationControls>
+                <mesh
+                    name="Lightright"
+                    castShadow
+                    geometry={nodes.Lightright.geometry}
+                    position={[0.725, 0.336, -1.819]}>
+                    <meshBasicMaterial color="#ffffff" />
+                </mesh>
+
+                <mesh
+                    name="Baked"
+                    geometry={nodes.Baked.geometry}
+                    position={[0.405, 0.384, -1.825]}>
+                    <meshBasicMaterial map={texture} />
+                </mesh>
+
+                <mesh
+                    name="Paper"
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Paper.geometry}
+                    position={[-0.353, 1.185, 0.423]}
+                    rotation={[0.449, 0, 0]}>
+                    <meshBasicMaterial map={texture} />
+                </mesh>
+
+                <mesh
+                    name="Paperball"
+                    castShadow
+                    geometry={nodes.Paperball.geometry}
+                    position={[1.618, 0.039, 0.938]}>
+                    <meshBasicMaterial map={texture} />
+                </mesh>
+
+                <mesh
+                    name="Phone"
+                    geometry={nodes.Phone.geometry}
+                    position={[0.299, 0.947, -0.224]}
+                    rotation={[-Math.PI, 1.541, -Math.PI]}>
+                    <meshBasicMaterial map={texture} />
+                </mesh>
+
+                <mesh
+                    name="Receiver"
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Receiver.geometry}
+                    material={nodes.Receiver.material}
+                    position={[0.323, 0.954, -0.122]}
+                    rotation={[-Math.PI, 1.541, -Math.PI]}>
+                    <meshBasicMaterial map={texture} />
+                </mesh>
+
+            </group>
+            {/* </PresentationControls> */}
         </>
     )
 }
