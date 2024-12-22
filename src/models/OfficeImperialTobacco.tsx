@@ -1,5 +1,5 @@
 import { useGLTF, useTexture, PresentationControls, useAnimations } from "@react-three/drei"
-import { useControls } from "leva"
+import { useTinker } from "tinker-tools"
 import { useEffect, useRef } from "react"
 import { Group, Mesh } from "three"
 import { GLTF } from "three-stdlib"
@@ -29,19 +29,15 @@ export default function OfficeImperialTobacco() {
 
     const { actions } = useAnimations(animations, group)
 
-    console.log(actions)
-
     useEffect(() => {
 
         actions['Printing']?.play()
         actions['StaplerHead']?.play()
         actions['StaplerBody']?.play()
 
-
-
     }, [])
 
-    const { rotation, polar, azimuth } = useControls({
+    const { rotation, polar, azimuth } = useTinker({
         rotation: {
             value: [0.4, -1, 0],
             step: 0.1
@@ -112,7 +108,7 @@ export default function OfficeImperialTobacco() {
                             geometry={nodes.Paper.geometry}
                             position={[-0.353, 1.185, 0.423]}
                             rotation={[0.449, 0, 0]}>
-                            <meshBasicMaterial map={texture} />
+                            <meshBasicMaterial color={0xcccccc} />
                         </mesh>
 
                         <mesh
@@ -131,6 +127,7 @@ export default function OfficeImperialTobacco() {
                             scale={0.904}>
                             <meshBasicMaterial map={texture} />
                         </mesh>
+
                     </group>
                 </group>
             </PresentationControls>
