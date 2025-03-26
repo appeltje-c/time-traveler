@@ -1,4 +1,4 @@
-import { useGLTF, useTexture, OrbitControls, useAnimations, PresentationControls } from "@react-three/drei"
+import { useGLTF, useTexture, useAnimations, PresentationControls } from "@react-three/drei"
 import { useTinker } from "tinker-tools"
 import { useEffect, useRef } from "react"
 import { Group, Mesh } from "three"
@@ -25,8 +25,8 @@ type GLTFResult = GLTF & {
 export default function OfficeImperialTobacco() {
 
     const group = useRef<Group>(null)
-    const { nodes, animations } = useGLTF('./model/model.glb') as GLTFResult
-    const texture = useTexture('./model/baked.jpg')
+    const { nodes, animations } = useGLTF('./model/imperial.glb') as GLTFResult
+    const texture = useTexture('./model/imperial.jpg')
     texture.flipY = false
 
     const { camera } = useThree();
